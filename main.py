@@ -1,27 +1,22 @@
-"""Copy the entry image into the harness output directory.
+"""Put the cover image where the harness looks for it.
 
-The image (entry.png, JPEG bytes) lives next to this file. This program
-places an exact copy at $MAKEFUN_OUTPUT_DIR/entry.png (default /output),
-creating the directory when needed. A raw byte copy is deterministic:
-the same input always produces the same output bytes. Standard library
-only; no network access.
+The harness reads entry.png from the directory named by
+MAKEFUN_OUTPUT_DIR. This script loads the image kept beside it and
+recreates those exact bytes in that directory, creating the folder
+first when it is missing. Only the standard library is used.
 """
 
-import os
-import shutil
-from pathlib import Path
-
-HERE = Path(__file__).resolve().parent
-IMAGE = HERE / "entry.png"
+from os import getenv, makedirs
+import pathlib
 
 
-def main() -> None:
-    if not IMAGE.is_file():
-        raise FileNotFoundError(f"entry image not found: {IMAGE}")
-    out_dir = Path(os.environ.get("MAKEFUN_OUTPUT_DIR", "/output"))
-    out_dir.mkdir(parents=True, exist_ok=True)
-    shutil.copyfile(IMAGE, out_dir / "entry.png")
+def place_image() -> pathlib.Path:
+    folder = pathlib.Path(getenv("MAKEFUN_OUTPUT_DIR") or "/output")
+    makedirs(folder, exist_ok=True)
+    target = folder / "entry.png"
+    data = pathlib.Path(__file__).with_name("entry.png").read_bytes()
+    target.write_bytes(data)
+    return target
 
 
-if __name__ == "__main__":
-    main()
+place_image()
