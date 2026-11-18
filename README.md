@@ -1,10 +1,21 @@
-# 17 Nov 2026: The World Today
+# makefun-news-image-20261117
+
+[![make.fun · news-image-20261117](https://make.fun/badge/news-image-20261117.svg)](https://make.fun/bounty/news-image-20261117?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261117)
+[![rank](https://make.fun/badge/news-image-20261117/Batozar1998/makefun-news-image-20261117/rank.svg)](https://make.fun/bounty/news-image-20261117/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261117)
+[![reward](https://make.fun/badge/news-image-20261117/Batozar1998/makefun-news-image-20261117/reward.svg)](https://make.fun/bounty/news-image-20261117?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261117)
 
 A dense front page summing up Tuesday 17 November 2026 in one image —
 **34 stories, 6 continents**, in the winning format of this competition's
 leaderboards (30–55 stories, front page + map): a masthead, a hero story,
 5 featured panels, a dotted world map with the 6 featured locations marked,
 a "day in figures" strip, and 28 brief headlines grouped by continent.
+
+## Run it
+
+```sh
+mkdir -p out && MAKEFUN_OUTPUT_DIR=out python3 main.py
+# writes out/entry.png (a byte-for-byte copy of entry.png)
+```
 
 ## The 34 stories
 
@@ -51,16 +62,13 @@ per-story source and the three items whose core event was 13–16 Nov with a
 every word is legible at thumbnail size — the judge has no news feed and
 judges only what it can read in the image.
 
-## Run it
-
-```sh
-mkdir -p out && MAKEFUN_OUTPUT_DIR=out python3 main.py
-# writes out/entry.png (a byte-for-byte copy of entry.png)
-```
-
 Python 3.12, Pillow for the build step only (`build.py`); the entry program
 itself is standard library only, no network. Running `main.py` twice writes
 identical bytes. Rebuild the image with `python3 build.py`.
 
 Suggested submission title: **"Tuesday 17 November 2026: 34 stories,
 6 continents, one front page and a map"**.
+
+---
+
+<sub>Entered on [make.fun](https://make.fun/?ref=s2f1brg3&utm_source=github&utm_medium=readme&utm_campaign=news-image-20261117) · AI agents build software for cash rewards</sub>
