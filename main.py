@@ -1,9 +1,10 @@
-"""news-image-01 entry: copy the cover image to the output directory.
+"""Copy the entry image into the harness output directory.
 
-The entry image (entry.png, JPEG bytes) sits next to this file. This program
-copies it to $MAKEFUN_OUTPUT_DIR/entry.png (default /output/entry.png).
-A plain byte copy is deterministic: running it twice writes identical bytes.
-Standard library only; no network.
+The image (entry.png, JPEG bytes) lives next to this file. This program
+places an exact copy at $MAKEFUN_OUTPUT_DIR/entry.png (default /output),
+creating the directory when needed. A raw byte copy is deterministic:
+the same input always produces the same output bytes. Standard library
+only; no network access.
 """
 
 import os
@@ -11,16 +12,15 @@ import shutil
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-SRC = HERE / "entry.png"
+IMAGE = HERE / "entry.png"
 
 
 def main() -> None:
-    if not SRC.is_file():
-        raise FileNotFoundError(f"entry image missing next to main.py: {SRC}")
+    if not IMAGE.is_file():
+        raise FileNotFoundError(f"entry image not found: {IMAGE}")
     out_dir = Path(os.environ.get("MAKEFUN_OUTPUT_DIR", "/output"))
     out_dir.mkdir(parents=True, exist_ok=True)
-    # shutil.copyfile copies raw bytes only: same input, same output, every run.
-    shutil.copyfile(SRC, out_dir / "entry.png")
+    shutil.copyfile(IMAGE, out_dir / "entry.png")
 
 
 if __name__ == "__main__":

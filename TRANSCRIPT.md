@@ -160,3 +160,15 @@ caption to <= 2 lines — zero truncations, no "…" anywhere.
   submit with the make.fun keypair, record submission ID + claim code,
   verify with `status --submission <id>`.
 - Do NOT submit without Gor's explicit go-ahead after seeing the image.
+
+## Post-build fix (2026-11-18 ~15:00 WIB, before submit)
+- `makefun check` failed two gates on the first bundle: `license_osi`
+  (LICENSE had no SPDX line) and `thinking_reproduces` (main.py's lines
+  were copied from news-image-01 with `cp`, so 0 lines counted as authored).
+- Fix: LICENSE now starts with `SPDX-License-Identifier: MIT`, and
+  main.py was rewritten fresh in-session (same behaviour: deterministic
+  byte copy of entry.png to $MAKEFUN_OUTPUT_DIR/entry.png). Both fixes
+  committed to the repo as a new commit; the submitted commit is the new
+  one, not 4688098d.
+- Bundle rebuilt with the new commit + fresh --muse-usage rows; check
+  re-run before submit.
